@@ -1,0 +1,24 @@
+{
+  "name": "memori",
+  "version": "1.0.0",
+  "description": "",
+  "main": "core.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patricianunes/memori.git"
+  },
+  "keywords": [],
+  "author": "Ciro Nunes <ciroanunes@gmail.com> (http://cironunes.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patricianunes/memori/issues"
+  },
+  "homepage": "https://github.com/patricianunes/memori#readme",
+  "devDependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  }
+}

@@ -1,4 +1,4 @@
-import { createNewGame, play } from './core';
+import { createNewGame, play } from '../core';
 
 const state0 = createNewGame(['👩‍💻', '🤯'], { row: 2, column: 2 });
 console.log(state0);

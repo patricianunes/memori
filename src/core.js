@@ -2,33 +2,12 @@
 // -------------------------------------------------------
 let i = -1;
 const next = () => {
-  i = i + 1
+  i = i + 1;
   return i;
 };
 
-
 // API
 // -------------------------------------------------------
-
-// Position = { row: number, column: number } ;
-// Card = string;
-// Spot = { card: Card, isOpen: boolean, hasMatched: boolean };
-// Board = Spot[][];
-// State = { board: Board, isGameOver: boolean };
-// Action = { type: string, payload: any };
-const initialState = {
-  board: [
-    [
-      { card:'🤯', isOpen: false, hasMatched: false },
-      { card:'👩‍💻', isOpen: false, hasMatched: false },
-    ],
-    [
-      { card:'👩‍💻', isOpen: false, hasMatched: false },
-      { card:'🤯', isOpen: false, hasMatched: false },
-    ],
-  ],
-  isGameOver: false,
-};
 
 // createNewGame :: Card[] -> Position -> State
 export const createNewGame = (cards, format) => {
@@ -37,23 +16,26 @@ export const createNewGame = (cards, format) => {
   // shuffle :: deck -> deck
   // shuffle(deck)
 
-  const board = createBoard(deck, format); // 
+  const board = createBoard(deck, format); //
 
   return {
     board,
-    isGameOver: false,
+    isGameOver: false
   };
 };
 
 // play :: State -> Action -> State
 export const play = (state, action) => {
   switch (action.type) {
-    case 'PLAY':
+    case "PLAY":
       const { row, column } = action.payload;
-      let boardCopy = state.board.slice()
+      let boardCopy = state.board
+        .slice()
         .map((r, rIndex) =>
           r.map((c, cIndex) =>
-            (row === rIndex && column === cIndex) ? {...c, isOpen: true} : c ));
+            row === rIndex && column === cIndex ? { ...c, isOpen: true } : c
+          )
+        );
 
       const spot = Object.assign({}, boardCopy[row][column]);
       const matched = isThereAMatch(spot, state.board);
@@ -61,14 +43,17 @@ export const play = (state, action) => {
       const spotsMatched = state.board.flat().filter(s => s.hasMatched);
 
       if (matched) {
-        boardCopy = boardCopy
-          .map(r =>
-            r.map(c => c.card === spot.card ? {...c, hasMatched: true} : c));
+        boardCopy = boardCopy.map(r =>
+          r.map(c => (c.card === spot.card ? { ...c, hasMatched: true } : c))
+        );
       } else {
-
-        boardCopy = boardCopy
-          .map(r => 
-            r.map(c => c.isOpen && !c.hasMatched && spotsOpen.length > spotsMatched ? {... c, isOpen : false} : c));
+        boardCopy = boardCopy.map(r =>
+          r.map(c =>
+            c.isOpen && !c.hasMatched && spotsOpen.length > spotsMatched
+              ? { ...c, isOpen: false }
+              : c
+          )
+        );
       }
 
       // if open (isOpen?), do nothing
@@ -77,13 +62,12 @@ export const play = (state, action) => {
       return {
         ...state,
         board: [...boardCopy],
-        isGameOver: boardCopy.flat().every(s => s.hasMatched),
+        isGameOver: boardCopy.flat().every(s => s.hasMatched)
       };
     default:
       return state;
   }
 };
-
 
 // private functions
 // -------------------------------------------------------
@@ -107,7 +91,7 @@ const breakdown = (spots, format) => {
 };
 
 // isThereAMatch :: Spot -> Board -> boolean
-const isThereAMatch = (spot, board) => 
+const isThereAMatch = (spot, board) =>
   board
     .flat()
     .filter(s => spot.card === s.card)
@@ -117,5 +101,5 @@ const isThereAMatch = (spot, board) =>
 const makeSpot = card => ({
   card,
   isOpen: false,
-  hasMatched: false,
+  hasMatched: false
 });

@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.board {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.spot {
+  font-size: 120px;
+  border: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.is-closed.spot {
+  color: transparent;
+}
+
+.is-playing .play {
+  display: none;
+}
